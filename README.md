@@ -30,6 +30,26 @@ npm test
 
 Os testes cobrem saúde da API, middlewares de autenticação/validação e rotas protegidas.
 
+### Executar testes de integração (com MySQL)
+
+Antes de rodar, garanta que o banco está ativo:
+
+```bash
+npm run db:up
+```
+
+Depois rode:
+
+```bash
+npm run test:integration
+```
+
+Para executar tudo (unitário + integração):
+
+```bash
+npm run test:all
+```
+
 5. Teste saúde da aplicação:
 
 ```bash
