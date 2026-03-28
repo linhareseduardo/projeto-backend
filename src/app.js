@@ -1,4 +1,5 @@
 const express = require("express");
+const categoryRoutes = require("./routes/category.routes");
 const userRoutes = require("./routes/user.routes");
 
 const app = express();
@@ -10,5 +11,6 @@ app.get("/health", (_req, res) => {
 });
 
 app.use(userRoutes);
+app.use(categoryRoutes);
 
 module.exports = app;
