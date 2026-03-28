@@ -22,6 +22,13 @@ npm run db:up
 npm run dev
 ```
 
+Ao iniciar, a API garante uma base minima de dados para avaliacao (quando o banco estiver vazio):
+- 10 usuarios
+- 5 categorias
+- 15 produtos
+
+Esse comportamento pode ser ajustado pelas variaveis `AUTO_SEED_ON_START`, `SEED_MIN_USERS`, `SEED_MIN_CATEGORIES` e `SEED_MIN_PRODUCTS`.
+
 ### Executar testes
 
 ```bash

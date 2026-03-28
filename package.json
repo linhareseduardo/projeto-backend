@@ -10,6 +10,7 @@
     "test:unit": "jest tests/health.test.js tests/middleware.auth.test.js tests/middleware.validators.test.js tests/routes.protected.test.js",
     "test:integration": "jest tests/integration.api.test.js --runInBand",
     "test:all": "npm run test:unit && npm run test:integration",
+    "seed:extra": "node scripts/seed-extra-data.js",
     "db:up": "docker compose up -d",
     "db:down": "docker compose down"
   },
