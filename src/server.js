@@ -1,7 +1,20 @@
+require("dotenv").config();
+
 const app = require("./app");
+const syncDatabase = require("./config/sync-database");
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+async function bootstrap() {
+  try {
+    await syncDatabase();
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Failed to start server:", error.message);
+    process.exit(1);
+  }
+}
+
+bootstrap();
