@@ -22,6 +22,14 @@ npm run db:up
 npm run dev
 ```
 
+### Executar testes
+
+```bash
+npm test
+```
+
+Os testes cobrem saúde da API, middlewares de autenticação/validação e rotas protegidas.
+
 5. Teste saúde da aplicação:
 
 ```bash
