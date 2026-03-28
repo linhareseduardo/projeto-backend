@@ -12,7 +12,8 @@
     "test:all": "npm run test:unit && npm run test:integration",
     "seed:extra": "node scripts/seed-extra-data.js",
     "db:up": "docker compose up -d",
-    "db:down": "docker compose down"
+    "db:down": "docker compose down",
+    "db:reset": "node scripts/reset-database.js"
   },
   "keywords": [],
   "author": "",
