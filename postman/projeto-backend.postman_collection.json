@@ -1,0 +1,305 @@
+{
+  "info": {
+    "_postman_id": "c5f0e30d-2f26-4b84-b944-69c6c7a6a001",
+    "name": "Projeto Backend - Demo",
+    "description": "Colecao para demonstracao do backend (health, token, usuarios, categorias, produtos).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "token", "value": "" },
+    { "key": "userId", "value": "1" },
+    { "key": "categoryId", "value": "1" },
+    { "key": "productId", "value": "1" },
+    { "key": "seedEmail", "value": "seed.user.0.1@mail.com" },
+    { "key": "seedPassword", "value": "123@123" }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "GET /health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "POST /v1/user/token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "  const json = pm.response.json();",
+                  "  pm.collectionVariables.set('token', json.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{seedEmail}}\",\n  \"password\": \"{{seedPassword}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/v1/user/token",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "user", "token"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "GET /v1/user/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/user/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "user", "{{userId}}"]
+            }
+          }
+        },
+        {
+          "name": "POST /v1/user",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstname\": \"Demo\",\n  \"surname\": \"User\",\n  \"email\": \"demo.user.{{$timestamp}}@mail.com\",\n  \"password\": \"123@123\",\n  \"confirmPassword\": \"123@123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/v1/user",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "user"]
+            }
+          }
+        },
+        {
+          "name": "PUT /v1/user/:id",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstname\": \"Demo Atualizado\",\n  \"surname\": \"User\",\n  \"email\": \"demo.atualizado@mail.com\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/v1/user/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "user", "{{userId}}"]
+            }
+          }
+        },
+        {
+          "name": "DELETE /v1/user/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/user/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "user", "{{userId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "GET /v1/category/search",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/category/search?limit=-1",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "category", "search"],
+              "query": [{ "key": "limit", "value": "-1" }]
+            }
+          }
+        },
+        {
+          "name": "GET /v1/category/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/category/{{categoryId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "category", "{{categoryId}}"]
+            }
+          }
+        },
+        {
+          "name": "POST /v1/category",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Categoria Demo\",\n  \"slug\": \"categoria-demo-{{$timestamp}}\",\n  \"use_in_menu\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/v1/category",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "category"]
+            }
+          }
+        },
+        {
+          "name": "PUT /v1/category/:id",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Categoria Atualizada\",\n  \"slug\": \"categoria-atualizada\",\n  \"use_in_menu\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/v1/category/{{categoryId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "category", "{{categoryId}}"]
+            }
+          }
+        },
+        {
+          "name": "DELETE /v1/category/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/category/{{categoryId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "category", "{{categoryId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "GET /v1/product/search",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/product/search?limit=-1",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "product", "search"],
+              "query": [{ "key": "limit", "value": "-1" }]
+            }
+          }
+        },
+        {
+          "name": "GET /v1/product/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/product/{{productId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "product", "{{productId}}"]
+            }
+          }
+        },
+        {
+          "name": "POST /v1/product",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enabled\": true,\n  \"name\": \"Produto Demo\",\n  \"slug\": \"produto-demo-{{$timestamp}}\",\n  \"stock\": 10,\n  \"description\": \"Produto para teste\",\n  \"price\": 119.9,\n  \"price_with_discount\": 99.9,\n  \"category_ids\": [1],\n  \"images\": [\n    { \"type\": \"image/png\", \"content\": \"https://img.local/demo.png\" }\n  ],\n  \"options\": [\n    {\n      \"title\": \"Tamanho\",\n      \"shape\": \"square\",\n      \"type\": \"text\",\n      \"values\": [\"P\", \"M\", \"G\"]\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/v1/product",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "product"]
+            }
+          }
+        },
+        {
+          "name": "PUT /v1/product/:id",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enabled\": true,\n  \"name\": \"Produto Demo Atualizado\",\n  \"slug\": \"produto-demo-atualizado\",\n  \"stock\": 20,\n  \"description\": \"Atualizado\",\n  \"price\": 99.9,\n  \"price_with_discount\": 79.9,\n  \"category_ids\": [1],\n  \"images\": [],\n  \"options\": []\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/v1/product/{{productId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "product", "{{productId}}"]
+            }
+          }
+        },
+        {
+          "name": "DELETE /v1/product/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/product/{{productId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "product", "{{productId}}"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

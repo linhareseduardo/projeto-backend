@@ -57,6 +57,17 @@ Para executar tudo (unitário + integração):
 npm run test:all
 ```
 
+### Colecao Postman para demo
+
+Importe a colecao pronta em:
+
+`postman/projeto-backend.postman_collection.json`
+
+Sugestao de ordem para demonstracao:
+1. `GET /health`
+2. `POST /v1/user/token` (salva token)
+3. requests de `Users`, `Categories` e `Products` usando `Bearer {{token}}`
+
 5. Teste saúde da aplicação:
 
 ```bash
