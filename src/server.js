@@ -12,7 +12,7 @@ async function bootstrap() {
       console.log(`Server running on port ${PORT}`);
     });
   } catch (error) {
-    console.error("Failed to start server:", error.message);
+    console.error("Failed to start server:", error.message || error);
     process.exit(1);
   }
 }

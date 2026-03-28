@@ -1,5 +1,39 @@
 ## Escopo do projeto
 
+## Como executar localmente
+
+1. Instale dependências:
+
+```bash
+npm install
+```
+
+2. Crie o arquivo `.env` com base no `.env.example`.
+
+3. Suba o MySQL com Docker:
+
+```bash
+npm run db:up
+```
+
+4. Inicie a API:
+
+```bash
+npm run dev
+```
+
+5. Teste saúde da aplicação:
+
+```bash
+GET http://localhost:3000/health
+```
+
+6. Para parar o banco:
+
+```bash
+npm run db:down
+```
+
 Para a implementação deste projeto vamo precisar usar as seguintes tecnologias:
 
 - **Node.js** para fornecer a possibilidade de executar JS em um servidor
